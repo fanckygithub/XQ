@@ -1,5 +1,7 @@
 # XScript 官方語法與核心說明文件
 
+> 版本與同步狀態：見 [SOURCES.md](SOURCES.md)（S2）。
+
 本文件為 XQ（嘉實資訊）XScript 交易語法的完整技術參考手冊，融合《程式交易的第一本書》教學內容與 [XSHelp 官方說明](https://xshelp.xq.com.tw/XSHelp/) 的函數/欄位定義。 可直接上傳至 AI 助理知識庫，作為 XScript 語法的最高指導原則。
 
 ---

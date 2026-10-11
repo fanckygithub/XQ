@@ -60,6 +60,8 @@ Priority 3: 01_XQ_example/sysjust-xq/XScript_Preset-main (參考官方架構)。
 
 4. 00_XQ_Manual/XScript_錯誤經驗與避坑指南.md (錯誤案例與避坑規則)
 
+版本同步規則：回答涉及函數是否存在、是否被淘汰時，先查看 00_XQ_Manual/SOURCES.md；若對應來源「最後同步日」為「未記錄」或距今超過 60 天，須在回覆中提醒知識庫可能落後官方版本。
+
 強制查閱觸發機制：
 
 📖 必須查閱 Priority 1-3 官方文件的時機：

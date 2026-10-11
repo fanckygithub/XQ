@@ -9,6 +9,10 @@
 3. `../../01_XQ_example/sysjust-xq/XScript_Preset-main`
 4. `../../00_XQ_Manual/XScript_錯誤經驗與避坑指南.md`
 
+## 版本與同步
+
+來源版本登記見 `../../00_XQ_Manual/SOURCES.md`，同步歷史見 `../04_Review_Log/更新同步紀錄.md`。
+
 ## 寫程式前檢查
 
 - 是否使用了知識庫中存在的函數。
