@@ -463,10 +463,14 @@ Value2 \= GetSymbolField("2330.TW", "外資買賣超"); // 取得台積電外資
 | 函數 | 說明 |
 | :---- | :---- |
 | `GetSymbolField(symbol, field)` | 讀取指定商品的盤後欄位資料 |
-| `GetSymbolInfo(symbol, field)` | 讀取商品基本資訊 |
+| `GetSymbolInfo("商品資訊欄位名稱")` | 讀取目前商品的商品資訊欄位（單一參數；官方說明頁未提供指定其他商品代碼的寫法） |
 | `CheckSymbolField(symbol, field)` | 判斷指定商品欄位是否合法 |
 | `Symbol` | 目前執行腳本的商品代碼 |
 | `SymbolName` | 目前執行腳本的商品名稱 |
+
+> [修正 2026-10-11] 原寫 `GetSymbolInfo(symbol, field)`（兩個參數），與官方語法不符，已改為單一參數。來源：https://xshelp.xq.com.tw/XSHelp/?HelpName=GetSymbolInfo&group=FIELDFUNC
+>
+> [新增 2026-10-11] `GetSymbolInfo("合約乘數")`：回傳期貨／選擇權的契約價值，格式數值，支援台灣期貨與台灣選擇權。
 
 ---
 
@@ -652,6 +656,31 @@ Value2 \= GetSymbolField("2330.TW", "外資買賣超"); // 取得台積電外資
 | `Array_Sort2d` | 二維陣列排序 |
 | `Array_Sum` | 取得陣列內元素加總 |
 
+#### SDT 函數 [新增 2026-10-11，v7.20.01 / v3.20.01]
+
+SDT 為以字串 key 為列、1~100 個直行（可用數字或欄名）的資料表。每個函數另有 `_L` 版（名稱加 `_L`，參數與說明相同）。
+來源：https://xshelp.xq.com.tw/XSHelp/lists?a=SDTFUNC
+
+| 函數 | 語法 | 說明 |
+| :---- | :---- | :---- |
+| `SDT_GetValue` | `SDT_GetValue(key, column, default:=0)` | 讀取數值；找不到 key／column 回傳 default；字串自動轉數值，失敗回 0 |
+| `SDT_GetString` | `SDT_GetString(key, column, default:="")` | 讀取字串；數值自動轉字串 |
+| `SDT_SetValue` | `SDT_SetValue(key, column, value)` | 寫入數值；column 為不存在的字串即新增直行；欄號或直行總數超過 100 回傳錯誤 |
+| `SDT_SetString` | `SDT_SetString(key, column, value)` | 寫入字串，規則同上 |
+| `SDT_SetValueIf` | `SDT_SetValueIf(key, column, newvalue, oldvalue)` | 現值等於 oldvalue 才寫入並回傳 True，否則回傳 False |
+| `SDT_SetStringIf` | `SDT_SetStringIf(key, column, newvalue, oldvalue)` | 字串版 |
+| `SDT_SetColumnName` | `SDT_SetColumnName(column_num, column_name)` | 命名或修改直行名稱（官方更新紀錄未列，函數清單頁有） |
+| `SDT_HasKey` | `SDT_HasKey(key)` | 回傳布林；key 大小寫不分 |
+| `SDT_GetKeys` | `SDT_GetKeys(output_key_array)` | 將所有 key 填入一維字串陣列；順序不保證 |
+| `SDT_Sum` / `SDT_Average` | `(column)` | 無法轉數值的列以 0 計入 |
+| `SDT_Max` / `SDT_Min` / `SDT_Median` | `(column)` 或 `(column, output_key)` | 無法轉數值的列略過；同值時 output_key 取字串排序較小者 |
+| `SDT_SortKey` | `SDT_SortKey(sorted_key_array, order:=-1)` | 依 key 排序；order：-1 由小到大（預設），1 由大到小 |
+| `SDT_Sort` / `SDT_SortString` | `(column, sorted_key_array, order:=-1)` | 依數值／字串排序，order 同上 |
+| `SDT_RemoveKey` | `SDT_RemoveKey(key)` | 移除指定 key 整列 |
+| `SDT_RemoveAll` | `SDT_RemoveAll()` | 清空整張表 |
+
+> **官方未說明、待實測**：`_L` 版與非 `_L` 版的差異；SDT 資料表的作用範圍（單一腳本／跨腳本／跨商品）；`SetValueIf` 所稱「同一時間點」的實際語意。實測前不得自行推測用法。
+
 #### 交易函數
 
 | 函數名稱 | 說明 |
@@ -822,7 +851,7 @@ Value2 \= GetSymbolField("2330.TW", "外資買賣超"); // 取得台積電外資
 | `blackscholesmodel` | BlackScholes 完整模型 |
 | `HVolatility` | 歷史波動率 |
 | `IVolatility` | 隱含波動率 |
-| `DaysToExpiration / DaysToExpirationTF` | 離到期日天數 |
+| `DaysToExpiration / DaysToExpirationTF` | 離到期日天數。`DaysToExpirationTF` 自動計算台股指數類期貨、選擇權的到期天數，支援週選擇權；回傳 1 表示當天為結算日，小於 1 表示合約已到期；未調整因放假造成的到期日異動（官方頁：https://xshelp.xq.com.tw/XSHelp/api?a=DaysToExpirationTF&b=sys） |
 | `IsXLOrder / IsXOrder` | 判斷是否大單/特大單 |
 | `NORMSDIST` | 標準常態累加分配函數 |
 
@@ -841,7 +870,7 @@ Value2 \= GetSymbolField("2330.TW", "外資買賣超"); // 取得台積電外資
 | `xf_GetDTValue` | 計算指定頻率的序列值 |
 | `xf_GetCurrentBar` | 跨頻率K棒編號 |
 | `xf_WeightedClose` | 跨頻率加權平均價 |
-| `xfMin_* 系列` | 跨分鐘頻率版本（CrossOver/EMA/MACD/RSI/Stochastic等） |
+| `xfMin_* 系列` | 跨分鐘頻率版本（CrossOver/CrossUnder/DirectionMovement/EMA/GetBoolean/GetCurrentBar/GetDTValue/GetValue/MACD/MTM/PercentR/RSI/Stochastic/WeightedClose/Xaverage）。官方支援頻率（以 xfMin_EMA 說明頁為準）：`"1","5","10","15","30","60","D","W","M","AD","AW","AM"`；僅支援台股與台期權，不支援 XS 選股、選股自訂排行與選股回測。GitHub 範例程式含 `"20"` 分支，但官方文件未列，待實測，勿視為正式支援（官方頁：https://xshelp.xq.com.tw/XSHelp/api?a=xfMin_EMA&b=sys） |
 | `BollingerBandWidth` | 布林帶寬度指標 |
 | `PercentB` | %b指標 |
 | `TurnOverRate` | 周轉率 |
@@ -1194,6 +1223,8 @@ SetOutputName(1, "外資買超天數");    // 設定欄位標題
 | 漲停家數 | 指數成分股內目前漲停的家數 |
 | 跌停家數 | 指數成分股內目前跌停的家數 |
 
+> [補充 2026-10-11] 上漲家數與漲停家數分別統計，上漲家數不含漲停家數（下跌／跌停同理）；大盤商品統計扣除權證。GetField 版本的 `param` 範圍參數見 8.7。來源：https://xshelp.xq.com.tw/XSHelp/?HelpName=上漲家數&group=QMARKET
+
 ### 7.6 期權
 
 | 欄位名稱 | 說明 |
@@ -1298,9 +1329,28 @@ SetOutputName(1, "外資買超天數");    // 設定欄位標題
 | TW50相關指標 | KD多空家數、MTM多空家數、上昇趨勢家數、大戶買賣力、大單成交次數/買進金額、均線多空家數、紅K家數、創新低/高家數、價格上漲家數 |
 | 大盤指標 | 上漲/下跌家數、內外盤家數、漲停/跌停家數、騰落指標 |
 
+**[修改 2026-10-11，v7.20.01] 家數欄位新增 `param` 統計範圍參數**（`上漲家數`/`UpSecurities`、`下跌家數`/`DownSecurities`、`漲停家數`/`UpLimitSecs`、`跌停家數`/`DownLimitSecs`；僅大盤與類股指數，支援分鐘與日頻率）：
+
+| 寫法 | 統計範圍 |
+| :---- | :---- |
+| `GetField("上漲家數", param:="普通股")` | 僅股票（未設定 param 時的預設值） |
+| `GetField("上漲家數", param:="不含權證")` | 股票與 ETF |
+| `GetField("上漲家數", param:="整體市場")` | 股票、ETF 與權證 |
+
+上漲家數不含漲停家數、下跌家數不含跌停家數。分鐘頻率取當下最新值，日頻率取當日最後值。來源：https://xshelp.xq.com.tw/XSHelp/?HelpName=上漲家數&group=TMARKET
+
 ### 8.8 期權 (51項)
 
 *Delta/Gamma/RHO/Theta/Vega、前十大/前五大交易人及法人買賣方未沖銷口數、三大法人/外資/自營商/投信多空方交易口數及金額及未平倉口數及金額、未平倉口數、預估除息點數、波動率指數、波動率、時間價值、理論價、買賣權未平倉量比率及成交量比率、買權/賣權未平倉量及成交量、隱含波動率、內含值等*
+
+**[新增 2026-10-11，v7.20.01]**（以下 2 項不含在上述 51 項計數內）
+
+| 欄位名稱 | 語法 | 說明 |
+| :---- | :---- | :---- |
+| 維持保證金 | `GetField("維持保證金")` / `GetField("MaintenanceMargin")` | 持有部位期間帳戶權益數須高於的水準，低於時券商發追繳通知。單位元；支援期貨、選擇權；僅支援指數與 ETF 期貨；單一頻率；指標／警示／交易／函數可用 |
+| 原始保證金 | `GetField("原始保證金")` / `GetField("ClearingMargin")` | 開倉建立新部位所需最低資金，由期交所訂定並定期調整。單位元；其餘同上 |
+
+來源：https://xshelp.xq.com.tw/XSHelp/?HelpName=維持保證金&group=TOPTION 、https://xshelp.xq.com.tw/XSHelp/?HelpName=原始保證金&group=TOPTION
 
 ---
 

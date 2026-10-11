@@ -10,7 +10,7 @@
 | 編號 | 檔案／資料夾 | 優先級 | 上游來源 | 基準版本 | 最後同步日 | 同步方式 |
 | --- | --- | --- | --- | --- | --- | --- |
 | S1 | `XScript_個人語法說明文件.md` | P1 | 使用者實戰經驗 | 不適用 | 未記錄 | 僅在「實測行為改變」時修改 |
-| S2 | `XScript_官方語法與核心說明文件.md` | P2 | https://xshelp.xq.com.tw/XSHelp/ | 未記錄 | 未記錄 | 依官方更新紀錄逐條合併 |
+| S2 | `XScript_官方語法與核心說明文件.md` | P2 | https://xshelp.xq.com.tw/XSHelp/ | 企業版 v7.20.03 / 個人版 v3.20.03（更新紀錄僅 v7.20.01 起有條目，更早版本基準不可考） | 2026-10-11 | 依官方更新紀錄逐條合併 |
 | S3 | `../01_XQ_example/sysjust-xq/XScript_Preset-main` | P3 | https://github.com/sysjust-xq | commit d15a415（提交日 2026-09-17） | 2026-10-11 | `tools/sync_sysjust.sh` |
 | S4 | `../01_XQ_example/sysjust-xq/XS_Blocks-main` | P3 | https://github.com/sysjust-xq | commit 5990129（提交日 2026-08-12） | 2026-10-11 | 同 S3 |
 | S5 | `../01_XQ_example/sysjust-xq/XQStrategy-main` | P3 | https://github.com/sysjust-xq | commit c799745（提交日 2024-08-01） | 2026-10-11 | 同 S3 |
