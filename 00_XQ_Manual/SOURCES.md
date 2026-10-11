@@ -2,6 +2,7 @@
 
 本檔是知識庫「基準版本」的唯一登記處。每次同步官方更新後，只更新本檔與 `02_Second_Brain/04_Review_Log/更新同步紀錄.md`。
 
+> 完整 commit 雜湊見 `sources.lock`（由 `tools/sync_sysjust.sh` 自動產生）。
 > 狀態值：`未記錄` 代表建立登記表時無法確認，尚待使用者或下次同步時補上。不得自行推測填寫。
 
 ## 來源清單
@@ -10,10 +11,10 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | S1 | `XScript_個人語法說明文件.md` | P1 | 使用者實戰經驗 | 不適用 | 未記錄 | 僅在「實測行為改變」時修改 |
 | S2 | `XScript_官方語法與核心說明文件.md` | P2 | https://xshelp.xq.com.tw/XSHelp/ | 未記錄 | 未記錄 | 依官方更新紀錄逐條合併 |
-| S3 | `../01_XQ_example/sysjust-xq/XScript_Preset-main` | P3 | https://github.com/sysjust-xq | commit 未記錄 | 未記錄 | 重新下載並用 `git diff` 比對 |
-| S4 | `../01_XQ_example/sysjust-xq/XS_Blocks-main` | P3 | https://github.com/sysjust-xq | commit 未記錄 | 未記錄 | 同 S3 |
-| S5 | `../01_XQ_example/sysjust-xq/XQStrategy-main` | P3 | https://github.com/sysjust-xq | commit 未記錄 | 未記錄 | 同 S3 |
-| S6 | `../01_XQ_example/sysjust-xq/vscode-xs-master` | P3 | https://github.com/sysjust-xq | commit 未記錄 | 未記錄 | 同 S3 |
+| S3 | `../01_XQ_example/sysjust-xq/XScript_Preset-main` | P3 | https://github.com/sysjust-xq | commit d15a415（提交日 2026-09-17） | 2026-10-11 | `tools/sync_sysjust.sh` |
+| S4 | `../01_XQ_example/sysjust-xq/XS_Blocks-main` | P3 | https://github.com/sysjust-xq | commit 5990129（提交日 2026-08-12） | 2026-10-11 | 同 S3 |
+| S5 | `../01_XQ_example/sysjust-xq/XQStrategy-main` | P3 | https://github.com/sysjust-xq | commit c799745（提交日 2024-08-01） | 2026-10-11 | 同 S3 |
+| S6 | `../01_XQ_example/sysjust-xq/vscode-xs-master` | P3 | https://github.com/sysjust-xq | commit c6101a5（提交日 2023-04-26） | 2026-10-11 | 同 S3 |
 | S7 | `XScript_錯誤經驗與避坑指南.md` | 輔助 | 使用者編譯錯誤紀錄 | 不適用 | 未記錄 | 每次遇到新錯誤即追加 |
 
 ## 同步原則
